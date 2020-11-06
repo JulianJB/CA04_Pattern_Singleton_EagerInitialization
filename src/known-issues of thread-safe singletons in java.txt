@@ -1,0 +1,28 @@
+4) Write about two known issues when trying to implement thread-safe singletons in Java.
+
+Depending on the initialization approach used for implementing a thread-safe singleton in Java different
+issues may arise and their impact on the application will differ as well.
+
+1) Waste of resources
+
+By implementing a thread-safe singleton using the Eager Initialization approach a waste of resources issue
+may occur. In this scenario, mostly CPU time will be affected as the instance of the singleton will always
+be created regardless of whether the singleton it is actually being requested or not by the application.
+Although it is easy to implement this is usually not a good idea as any instance of an object should be
+created only when is truly needed by the application.
+
+2) Slow performance
+
+On the other hand, slow performance can become a recurrent issue in the Synchronization Initialization as
+the getInstance method required to retrieve the instance of the singleton gets locked every time a thread
+gets access to it to prevent the creation of multiple instances of the singleton. This will increase the
+wait time for other threads exponentially depending on the number of threads requesting the instance of the
+singleton at the same time which will translate in a huge performance issue on the client-side of the
+application. Moreover, approaches based on synchronization are usually considered additional overhead on
+the implementation of the singleton pattern, such as in the Double Checked Locking Initialization.
+
+It is worth noting that, even if these initialization approaches for the singleton have their own drawbacks
+it is not recommended to implement a non thread-safe initialization of the singleton pattern, such as the
+Lazy Initialization, in a multithreaded environment as this will break the pattern completely by allowing
+the creation of multiple instances of the singleton. Other approaches more recommended although not
+implemented in this practical are the Bill Pugh Singleton Implementation or the use of the enum type.
